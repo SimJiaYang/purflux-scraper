@@ -1,5 +1,7 @@
 # Purflux Catalog Scraper
 
+![Purflux Web Scraper](./images/ASCII_ART.png)
+
 ## 📌 Overview
 
 The **Purflux Catalog Scraper** is a Node.js application that automates the extraction of product data from the Purflux Group Catalog website. Using Puppeteer, the scraper navigates through the catalog, retrieves product references, and scrapes detailed product information such as dimensions, images, OE\_PN values, and vehicle applications.
