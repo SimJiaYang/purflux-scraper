@@ -1,6 +1,5 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
-const axios = require("axios");
 const path = require("path");
 
 const BASE_URL = "http://www.purfluxgroupcatalog.com/catalogues/FO/scripts/accueil.php?zone=FR&catalogue=PFX&lang=GB";
@@ -13,10 +12,11 @@ const outputDir = path.join(__dirname, "product", timestamp);
 // Ensure the folder exists
 fs.mkdirSync(outputDir, { recursive: true });
 
+// Scrape the main catalog page to get product references
 async function scrapeMainCatalogue() {
     let browser;
     try {
-        browser = await puppeteer.launch({ headless: "new" }); // Set to false to see actions
+        browser = await puppeteer.launch({ headless: "new" });
         const page = await browser.newPage();
         console.log("🌐 Navigating to the catalog page...");
         await page.goto(BASE_URL, { waitUntil: "networkidle2" });
@@ -53,11 +53,12 @@ async function scrapeMainCatalogue() {
     }
 }
 
+// Scrape the details of a single product
 async function scrapeProductDetails(productRef) {
     let browser;
     try {
         const productUrl = `${DETAIL_URL_TEMPLATE}${productRef}&old_marque=`;
-        browser = await puppeteer.launch({ headless: false }); // Change to false for debugging
+        browser = await puppeteer.launch({ headless: "new"}); 
         const page = await browser.newPage();
         console.log(`🌐 Navigating to: ${productUrl}`);
         await page.goto(productUrl, { waitUntil: "domcontentloaded" });
@@ -95,7 +96,7 @@ async function scrapeProductDetails(productRef) {
 			const vehicleApplications = Array.from(document.querySelectorAll("div.row.margin20.row2.txtcontent"))
 			.map(row => {
 				const modelElement = row.querySelector("div.col-xs-2.txtleft strong");
-				if (!modelElement) return null; // Skip rows without a model (likely headers)
+				if (!modelElement) return null; // Skip rows without a model element
 		
 				const model = modelElement.textContent.trim();
 				const engineCodes = row.querySelector("div.col-xs-2:nth-child(2)")?.textContent.trim() || "";
@@ -103,6 +104,7 @@ async function scrapeProductDetails(productRef) {
 				const productionYear = row.querySelector("div.col-xs-2:nth-child(4)")?.textContent.trim() || "";
 				const engineCodeDetails = row.querySelector("div.col-xs-2:nth-child(5)")?.textContent.trim() || "";
 		
+                // Combine all values into a single string
 				let result = `${model}${engineCodes}${power}${productionYear}${engineCodeDetails}`;
 		
 				return result;
@@ -141,6 +143,7 @@ async function scrapeProductDetails(productRef) {
     }
 }
 
+// Main function to scrape all products
 async function scrapeAllProducts() {
     try {
         console.log("🚀 Starting Purflux Scraper...");
@@ -152,13 +155,16 @@ async function scrapeAllProducts() {
             return;
         }
 
+        // await scrapeProductDetails("A1259");
+        // return;
+
         // Loop through each product reference and scrape details
         for (let i = 0; i < productRefs.length; i++) {
             const productRef = productRefs[i];
             console.log(`🔍 Scraping product ${i + 1} of ${productRefs.length}: ${productRef}`);
             await scrapeProductDetails(productRef);
 
-            // Optional: Introduce a small delay to avoid getting blocked
+            // Optional: Introduce a small delay to avoid getting blocked - net::ERR_BLOCKED_BY_CLIENT
             await new Promise((resolve) => setTimeout(resolve, 2000));
         }
 
@@ -168,10 +174,12 @@ async function scrapeAllProducts() {
     }
 }
 
+// Start the scraper
 (async () => {
     await scrapeAllProducts();
 })();
 
+// Helper function to get Malaysia timestamp as filename
 function getMalaysiaTimestamp() {
     const malaysiaTime = new Intl.DateTimeFormat("en-GB", {
         timeZone: "Asia/Kuala_Lumpur",

@@ -1,0 +1,37 @@
+{
+  "IAM_PN": "A1259",
+  "Product_Line": "Air filter",
+  "Dimensions": {
+    "Height": "37 mm",
+    "Length": "404 mm",
+    "Width": "173 mm"
+  },
+  "Source": [
+    {
+      "imageURL800": "https://www.purfluxgroupcatalog.com/catalogues/import/photos_gd/PFX/A1259.jpg"
+    }
+  ],
+  "OE_PN": [
+    "06F133843A",
+    "GAF171",
+    "06F133843A",
+    "06F133843A",
+    "06F133843A",
+    "06F133843A"
+  ],
+  "Vehicle_Application": [
+    "A3 (8P) 2 TFSiAXX / BPY / BWA / CAWB / CBFA / CCZA147KW(200PS/HP)09/04->03/13Engine Code:AXX, BPY, BWA",
+    "A3 (8P) 2 TFSiAXX / BPY / BWA / CCZA147KW(200PS/HP)06/04->03/13Engine Code:AXX, BPY, BWA",
+    "A3 (8P) 2 TFSiAXX / BWA / CAWB / CCZA147KW(200PS/HP)09/04->08/12Engine Code:AXX, BPY, BWA",
+    "A3 (8P) 2 TFSiAXX / BWA / CCZA147KW(200PS/HP)09/04->08/12Engine Code:AXX, BPY, BWA",
+    "A3 (8P) 2 TFSiCAWB / CCZA147KW(200PS/HP)04/08->05/13Engine Code:AXX, BPY, BWA",
+    "TT (8J) 2 TFSiBPY / BWA / CCTA147KW(200PS/HP)03/07->06/10Engine Code:AXX, BPY, BWA",
+    "TT (8J) 2 TFSiBPY / BWA / CCTA147KW(200PS/HP)08/06->06/10Engine Code:AXX, BPY, BWA",
+    "TT (8J) 2 TFSiCCTA / CCZA147KW(200PS/HP)06/08->06/10Engine Code:AXX, BPY, BWA",
+    "TT (8J) 2 TFSiCCZA147KW(200PS/HP)06/08->06/10Engine Code:AXX, BPY, BWA",
+    "TT (8J) 2 TFSiCDLA / CDMA195KW(265PS/HP)05/08->06/14",
+    "TT (8J) 2 TFSiCDLA / CDMA195KW(265PS/HP)05/08->06/14",
+    "TT (8J) 2 TFSiCDLB200KW(272PS/HP)05/08->06/14",
+    "TT (8J) 2 TFSiCDLB200KW(272PS/HP)05/08->06/14"
+  ]
+}
