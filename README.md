@@ -91,6 +91,74 @@ product/
 
 ---
 
+## 📌 Overview of the Approach  
+
+The scraper follows a structured process to efficiently extract product data from the **Purflux Group Catalog** website:  
+
+### 1️⃣ Navigate to the Catalog Homepage  
+- Visits the base URL and waits until the page is fully loaded.  
+
+### 2️⃣ Extract Product References  
+- Clicks the **"Reference"** tab to access the product reference list.  
+- Retrieves all available references and stores them in a JSON file.  
+
+### 3️⃣ Scrape Product Details  
+For each product reference, the scraper navigates to its detail page and extracts key information:  
+- ✅ **IAM_PN** (Product Number)  
+- ✅ **Product Line**  
+- ✅ **Dimensions** (Height, Length, Width)  
+- ✅ **OE_PN Values** (Original Equipment Part Numbers)  
+- ✅ **Vehicle Applications**  
+- ✅ **Product Image URL**  
+
+### 4️⃣ Save Data  
+- The extracted data is saved in **JSON format** inside a uniquely named directory based on the **current timestamp**.  
+
+---
+
+## 🎯 Overview of Design Decisions and Assumptions  
+
+### **📌 Design Decisions**  
+
+✔ **Use of Puppeteer**  
+- Puppeteer automates browser interactions, allowing extraction of dynamic content that isn't available via direct HTTP requests.  
+
+✔ **Headless Mode Enabled**  
+- Runs in **headless mode (`headless: "new"`)** for faster execution while maintaining full page access.  
+
+✔ **Data Storage in JSON Format**  
+- Chosen for its simplicity, easy parsing, and compatibility with databases or other applications.  
+
+✔ **Timestamped Output Directory**  
+- Each scraping session stores results in a **separate directory** to prevent data overwrites and support historical analysis.  
+
+✔ **Sequential Scraping with Delays**  
+- Introduces **small delays (`setTimeout`)** between requests to reduce the risk of being blocked.  
+
+✔ **Error Handling**  
+- Implements `try-catch` blocks and logs errors to handle:  
+  - **Network failures**  
+  - **Missing elements**  
+  - **Unexpected website changes**  
+
+---
+
+### **🔍 Assumptions**  
+
+🔹 **Website Structure Remains Stable**  
+- The scraper relies on specific CSS selectors, assuming the website’s layout remains unchanged.  
+
+🔹 **Product References Are Available**  
+- Expects a **populated** list of product references under the **'Reference'** tab.  
+
+🔹 **All Required Data Exists on the Product Page**  
+- If any field is missing, it defaults to `"N/A"` instead of causing failures.  
+
+🔹 **Scraping is Allowed**  
+- No strict anti-scraping mechanisms (e.g., CAPTCHA or bot detection) are currently enforced.  
+
+---
+
 ## 🤝 Contributions
 
 Feel free to submit issues or pull requests if you want to improve the scraper.
